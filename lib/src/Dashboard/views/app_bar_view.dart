@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../app_bar_widgets.dart';
 
-import '../../shared/dashboard_colors.dart';
 import '../controllers/dashboard_controller.dart';
 
 class AppBarView extends GetView<DashboardController> {
+  final AppBarWidget appbar;
+  AppBarView(this.appbar);
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: DashboardColors.headerColor),
+      decoration: BoxDecoration(color: controller.colors.header),
       child: Row(
         children: [
           Row(
             children: [
               IconButton(
-                icon: Icon(Icons.menu, color: Colors.white),
+                icon: Icon(Icons.menu, color: controller.colors.headerItems),
                 onPressed: () => controller.chengeSidebarMode(),
               ),
               const SizedBox(width: 25),
@@ -22,18 +24,16 @@ class AppBarView extends GetView<DashboardController> {
                     controller.file.value,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: controller.colors.headerItems,
                       fontSize: 20,
                     ),
                   )),
+              appbar.left
             ],
           ),
           Spacer(),
           const SizedBox(width: 30),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.settings, color: Colors.white),
-          ),
+          appbar.right
         ],
       ),
     );

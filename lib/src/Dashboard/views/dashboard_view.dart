@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
+import '../../app_bar_widgets.dart';
 import '../controllers/dashboard_controller.dart';
 import 'app_bar_view.dart';
 import 'sidebar_view.dart';
 
 class DashboardView extends GetView<DashboardController> {
-  DashboardView({Key key}) : super(key: key);
+  final AppBarWidget appbar;
+  DashboardView(this.appbar);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +21,7 @@ class DashboardView extends GetView<DashboardController> {
             Expanded(
               child: Column(
                 children: [
-                  AppBarView(),
+                  AppBarView(appbar),
                   Obx(() => AnimatedSwitcher(
                         duration: Duration(milliseconds: 800),
                         child: Container(

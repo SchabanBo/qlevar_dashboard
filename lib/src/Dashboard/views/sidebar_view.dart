@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../shared/dashboard_colors.dart';
 import '../controllers/dashboard_controller.dart';
 
 class SidebarView extends GetView<DashboardController> {
@@ -11,9 +10,9 @@ class SidebarView extends GetView<DashboardController> {
     return Obx(() => AnimatedContainer(
           duration: 400.milliseconds,
           curve: Curves.easeInOut,
-          width: controller.withMode(250, 65, 0),
+          width: controller.withMode(250, 50, 0),
           decoration: BoxDecoration(
-            color: DashboardColors.drawerColor,
+            color: controller.colors.sidebar,
           ),
           child: _getItems(),
         ));
@@ -24,13 +23,13 @@ class SidebarView extends GetView<DashboardController> {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: [
-          controller.withMode(
-              Image.asset(
-                'assets/images/QlevarLogo.png',
-                width: 100,
-              ),
-              Container(),
-              Container()),
+          // controller.withMode(
+          //     Image.asset(
+          //       'assets/images/QlevarLogo.png',
+          //       width: 100,
+          //     ),
+          //     Container(),
+          //     Container()),
           const SizedBox(height: 10),
           // Container(
           //   height: 75,
@@ -39,7 +38,7 @@ class SidebarView extends GetView<DashboardController> {
           Container(
               margin: EdgeInsets.symmetric(vertical: 10),
               height: 2,
-              color: Colors.amber),
+              color: controller.colors.accent),
           // _getListTile(DashboardRoutes.INIT, Icons.dashboard),
           // _getListTile(DashboardRoutes.EMPLOYEE, Icons.person),
           // _getListTile(DashboardRoutes.TABLES, Icons.table_view),
@@ -53,8 +52,8 @@ class SidebarView extends GetView<DashboardController> {
     return Obx(() => AnimatedContainer(
           duration: 800.milliseconds,
           curve: Curves.easeInOutBack,
-          color: controller.file.value == route
-              ? Colors.amber
+          color: controller.file == route
+              ? controller.colors.accent
               : Colors.transparent,
           child: controller.mode.value == SidebarMode.Closed
               ? Container()
@@ -62,16 +61,21 @@ class SidebarView extends GetView<DashboardController> {
                   title: controller.withMode(
                       Text(
                         route,
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: controller.colors.headerItems),
                       ),
                       Container(),
                       Container()),
                   leading: Icon(
                     icon,
-                    color: Colors.white,
+                    color: controller.colors.headerItems,
                   ),
                   onTap: () {
                     controller.file.value = route;
+                    if (controller.size.value.isMobile &&
+                        controller.mode.value != SidebarMode.Closed) {
+                      controller.mode.value = SidebarMode.Closed;
+                    }
                   },
                 ),
         ));
@@ -94,7 +98,7 @@ class SidebarView extends GetView<DashboardController> {
   //                 controller.withMode(
   //                     Text(
   //                       authService.restaurant.name,
-  //                       style: TextStyle(color: Colors.white, fontSize: 17),
+  //                       style: TextStyle(color: controller.colors.value.headerItems, fontSize: 17),
   //                     ),
   //                     Container(),
   //                     Container()),

@@ -1,7 +1,13 @@
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
+import '../../shared/dashboard_colors.dart';
+
 class DashboardController extends GetxController {
+  DashboardController({this.colors});
+
+  final DashboardColors colors;
+
   final file = ''.obs;
 
   final mode = SidebarMode.Opened.obs;
