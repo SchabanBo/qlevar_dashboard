@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       home: Dashboard(
-        colors: DashboardColors(accent: Colors.red),
+        colors: DashboardColors(accent: Colors.green),
         appbar: AppBarWidget(
             right: Row(
           children: [
@@ -26,7 +26,25 @@ class MyApp extends StatelessWidget {
             const SizedBox(width: 20),
           ],
         )),
+        sidebarWidgets: SidebarWidgets(
+            header: Text(
+              'My Cool Store',
+              style: TextStyle(fontSize: 18),
+            ),
+            items: [
+              SidebarItem('Dashboard', Icons.dashboard, _getChild('Dashboard')),
+              SidebarItem('Orders', Icons.account_box, _getChild('Orders')),
+              SidebarItem('Customers', Icons.person, _getChild('Customers')),
+              SidebarItem('Items', Icons.opacity, _getChild('Items')),
+              SidebarItem('Cash', Icons.money, _getChild('Cash')),
+            ]),
       ),
+    );
+  }
+
+  Widget _getChild(String name) {
+    return Center(
+      child: Text(name),
     );
   }
 }

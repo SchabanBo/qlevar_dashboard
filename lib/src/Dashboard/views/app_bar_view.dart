@@ -21,7 +21,7 @@ class AppBarView extends GetView<DashboardController> {
               ),
               const SizedBox(width: 25),
               Obx(() => Text(
-                    controller.file.value,
+                    controller.pageHeader.value,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: controller.colors.headerItems,

@@ -3,13 +3,15 @@ import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../app_bar_widgets.dart';
+import '../../sidebar_widgets.dart';
 import '../controllers/dashboard_controller.dart';
 import 'app_bar_view.dart';
 import 'sidebar_view.dart';
 
 class DashboardView extends GetView<DashboardController> {
   final AppBarWidget appbar;
-  DashboardView(this.appbar);
+  final SidebarWidgets sidebarWidgets;
+  DashboardView(this.appbar, this.sidebarWidgets);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +19,7 @@ class DashboardView extends GetView<DashboardController> {
         builder: (_, size) {
           controller.size.value = size;
           return Row(children: [
-            SidebarView(),
+            SidebarView(sidebarWidgets),
             Expanded(
               child: Column(
                 children: [
@@ -25,7 +27,8 @@ class DashboardView extends GetView<DashboardController> {
                   Obx(() => AnimatedSwitcher(
                         duration: Duration(milliseconds: 800),
                         child: Container(
-                          child: Text(controller.file.value),
+                          child: sidebarWidgets
+                              .items[controller.pageIndex.value].child,
                         ),
                         switchInCurve: Curves.easeInOutQuint,
                         transitionBuilder: (child, animation) =>

@@ -8,7 +8,8 @@ class DashboardController extends GetxController {
 
   final DashboardColors colors;
 
-  final file = ''.obs;
+  final pageIndex = 0.obs;
+  final pageHeader = ''.obs;
 
   final mode = SidebarMode.Opened.obs;
   final Rx<SizingInformation> size = SizingInformation().obs;
