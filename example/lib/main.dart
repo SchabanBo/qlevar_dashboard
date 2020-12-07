@@ -27,9 +27,19 @@ class MyApp extends StatelessWidget {
           ],
         )),
         sidebarWidgets: SidebarWidgets(
-            header: Text(
+            headerOpen: Text(
               'My Cool Store',
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700),
+            ),
+            headerFixed: Text(
+              'MCS',
+              style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700),
             ),
             items: [
               SidebarItem('Dashboard', Icons.dashboard, _getChild('Dashboard')),

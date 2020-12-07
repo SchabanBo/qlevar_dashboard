@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 class SidebarWidgets {
-  final Widget header;
+  final Widget headerOpen;
+  final Widget headerFixed;
   final List<SidebarItem> items;
   final Widget footer;
-  final bool showSeparator;
   SidebarWidgets(
-      {this.header,
-      @required this.items,
-      this.footer,
-      this.showSeparator = true});
+      {this.headerOpen, this.headerFixed, @required this.items, this.footer});
 }
 
 class SidebarItem {

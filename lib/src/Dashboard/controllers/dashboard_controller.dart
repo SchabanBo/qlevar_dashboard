@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -13,10 +14,14 @@ class DashboardController extends GetxController {
 
   final mode = SidebarMode.Opened.obs;
   final Rx<SizingInformation> size = SizingInformation().obs;
+  final modeAnimationDone = false.obs;
 
   @override
   void onInit() {
     super.onInit();
+    mode.listen((_) {
+      modeAnimationDone.value = false;
+    });
     size.listen((s) {
       if (s.isDesktop) {
         mode.value = SidebarMode.Opened;
@@ -39,13 +44,20 @@ class DashboardController extends GetxController {
     update();
   }
 
-  T withMode<T>(T open, T fixed, T colse) {
+  Widget widgetWithMode(
+      {Widget open = const SizedBox(),
+      Widget fixed = const SizedBox(),
+      Widget close = const SizedBox()}) {
+    return withMode(open, fixed, close);
+  }
+
+  T withMode<T>(T open, T fixed, T close) {
     if (mode.value == SidebarMode.Opened) {
-      return open;
+      return modeAnimationDone.value ? open : fixed;
     } else if (mode.value == SidebarMode.Fixed) {
-      return fixed;
+      return modeAnimationDone.value ? fixed : close;
     }
-    return colse;
+    return close;
   }
 
   void onDashboardChildTap() {

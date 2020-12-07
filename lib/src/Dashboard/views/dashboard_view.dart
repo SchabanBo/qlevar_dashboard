@@ -14,6 +14,8 @@ class DashboardView extends GetView<DashboardController> {
   DashboardView(this.appbar, this.sidebarWidgets);
   @override
   Widget build(BuildContext context) {
+    controller.pageHeader.value =
+        sidebarWidgets.items[controller.pageIndex.value].name;
     return Scaffold(
       body: ResponsiveBuilder(
         builder: (_, size) {
@@ -23,13 +25,11 @@ class DashboardView extends GetView<DashboardController> {
             Expanded(
               child: Column(
                 children: [
-                  AppBarView(appbar),
+                  appbar.useAppBar ? AppBarView(appbar) : Container(),
                   Obx(() => AnimatedSwitcher(
                         duration: Duration(milliseconds: 800),
-                        child: Container(
-                          child: sidebarWidgets
-                              .items[controller.pageIndex.value].child,
-                        ),
+                        child: sidebarWidgets
+                            .items[controller.pageIndex.value].child,
                         switchInCurve: Curves.easeInOutQuint,
                         transitionBuilder: (child, animation) =>
                             _buildFadeTransition(animation, child),
