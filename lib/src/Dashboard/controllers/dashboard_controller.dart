@@ -14,12 +14,17 @@ class DashboardController extends GetxController {
 
   final mode = SidebarMode.Opened.obs;
   final Rx<SizingInformation> size = SizingInformation().obs;
-  final modeAnimationDone = false.obs;
+  final modeAnimationDone = true.obs;
 
   @override
   void onInit() {
     super.onInit();
-    mode.listen((_) {
+    var lastmode = mode.value;
+    mode.listen((m) {
+      if (lastmode == m) {
+        return;
+      }
+      lastmode = m;
       modeAnimationDone.value = false;
     });
     size.listen((s) {
